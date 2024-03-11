@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
 import com.study.erum.dto.BoardDTO;
+import com.study.erum.dto.PageDTO;
 import com.study.erum.service.BoardService;
 
 import lombok.RequiredArgsConstructor;
@@ -76,16 +77,18 @@ public class BoardController {
     
     // /board/paging?page=2
     // 처음 페이지 요청은 1페이지를 보여줌
- // /board/paging?page=2
+    // /board/paging?page=2
     // 처음 페이지 요청은 1페이지를 보여줌
     @GetMapping("/paging")
-    public String paging(Model model,
-                         @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
+    public String paging(Model model, @RequestParam(value = "page", required = false, defaultValue = "1") int page) {
         System.out.println("page = " + page);
         // 해당 페이지에서 보여줄 글 목록
         List<BoardDTO> pagingList = boardService.pageList(page);
-        System.out.println("pageList = " + pagingList);
-        return "index";
+        System.out.println("pagingList = " + pagingList);
+        PageDTO pageDTO = boardService.pagingParam(page);
+        model.addAttribute("boardList", pagingList);
+        model.addAttribute("paging", pageDTO);
+        return "paging";
     }
 
 }
