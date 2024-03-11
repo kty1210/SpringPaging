@@ -1,5 +1,7 @@
 package com.study.erum.service;
 
+import java.util.List;
+
 import org.springframework.stereotype.Service;
 
 import com.study.erum.dto.BoardDTO;
@@ -16,4 +18,12 @@ public class BoardService {
 	public int save(BoardDTO boardDTO) {
         return boardRepository.save(boardDTO);
     }
+	
+	public List<BoardDTO> findAll() {
+        return boardRepository.findAll();
+    }
+
+    public BoardDTO findById(Long id) {
+        return boardRepository.findById(id);
+    }	
 }
